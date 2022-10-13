@@ -2,6 +2,7 @@ package com.code.mapper;
 
 import com.code.pojo.Itemset;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author xiaoshuai
  * @since 2022-10-13
  */
+@Mapper
 public interface ItemsetMapper extends BaseMapper<Itemset> {
 
 }

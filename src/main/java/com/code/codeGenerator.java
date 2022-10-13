@@ -33,9 +33,6 @@ public class codeGenerator {
     }
 
 
-
-
-
     public static void main(String[] args) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
