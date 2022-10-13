@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.mapper.ItemsetMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.pojo.Itemset">
+        <id column="itemset_id" property="itemsetId" />
+        <result column="itemset_topic" property="itemsetTopic" />
+        <result column="itemset_grade" property="itemsetGrade" />
+        <result column="itemset_status" property="itemsetStatus" />
+        <result column="itemset_type" property="itemsetType" />
+        <result column="itemset_notice" property="itemsetNotice" />
+        <result column="itemset_startTime" property="itemsetStarttime" />
+        <result column="itemset_endTIme" property="itemsetEndtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        itemset_id, itemset_topic, itemset_grade, itemset_status, itemset_type, itemset_notice, itemset_startTime, itemset_endTIme
+    </sql>
+
+</mapper>
