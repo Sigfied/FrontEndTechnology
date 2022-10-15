@@ -2,8 +2,6 @@ package com.code.service;
 
 import com.code.pojo.Itemset;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -11,9 +9,8 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-13
+ * @since 2022-10-15
  */
-@Service
 public interface ItemsetService extends IService<Itemset> {
 
 }

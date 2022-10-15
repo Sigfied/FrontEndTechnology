@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-13
+ * @since 2022-10-15
  */
 @Mapper
 public interface ItemsetMapper extends BaseMapper<Itemset> {

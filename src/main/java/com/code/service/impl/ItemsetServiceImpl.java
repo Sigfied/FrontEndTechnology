@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-13
+ * @since 2022-10-15
  */
-
+@Service
 public class ItemsetServiceImpl extends ServiceImpl<ItemsetMapper, Itemset> implements ItemsetService {
 
 }
