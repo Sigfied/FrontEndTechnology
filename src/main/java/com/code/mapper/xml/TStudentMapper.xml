@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.mapper.TStudentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.pojo.TStudent">
+        <id column="student_id" property="studentId" />
+        <result column="student_no" property="studentNo" />
+        <result column="student_name" property="studentName" />
+        <result column="student_password" property="studentPassword" />
+        <result column="memo" property="memo" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        student_id, student_no, student_name, student_password, memo
+    </sql>
+
+</mapper>

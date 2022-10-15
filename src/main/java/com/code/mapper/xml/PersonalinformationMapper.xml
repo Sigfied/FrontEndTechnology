@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.mapper.PersonalinformationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.pojo.Personalinformation">
+        <result column="teacher_id" property="teacherId" />
+        <result column="student_id" property="studentId" />
+        <result column="pi_email" property="piEmail" />
+        <result column="pi_school" property="piSchool" />
+        <result column="pi_uid" property="piUid" />
+        <result column="pi_role" property="piRole" />
+        <result column="pi_phone" property="piPhone" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        teacher_id, student_id, pi_email, pi_school, pi_uid, pi_role, pi_phone
+    </sql>
+
+</mapper>

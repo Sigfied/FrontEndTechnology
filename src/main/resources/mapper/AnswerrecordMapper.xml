@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.AnswerrecordMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.Answerrecord">
+            <id property="sutdentItemId" column="sutdent_item_id" jdbcType="INTEGER"/>
+            <id property="itemsetId" column="itemset_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sutdent_item_id,itemset_id
+    </sql>
+</mapper>
