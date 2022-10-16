@@ -1,8 +1,8 @@
 package com.code.service.impl;
 
-import com.code.pojo.Teacher;
-import com.code.mapper.TeacherMapper;
-import com.code.service.TeacherService;
+import com.code.pojo.ClazzTeacher;
+import com.code.mapper.ClazzTeacherMapper;
+import com.code.service.ClazzTeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-10-16
  */
 @Service
-public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
+public class ClazzTeacherServiceImpl extends ServiceImpl<ClazzTeacherMapper, ClazzTeacher> implements ClazzTeacherService {
 
 }
