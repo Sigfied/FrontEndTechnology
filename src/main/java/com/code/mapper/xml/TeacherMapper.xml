@@ -5,13 +5,14 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.code.pojo.Teacher">
         <id column="teacher_id" property="teacherId" />
+        <result column="teacher_no" property="teacherNo" />
         <result column="teacher_name" property="teacherName" />
         <result column="teacher_password" property="teacherPassword" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        teacher_id, teacher_name, teacher_password
+        teacher_id, teacher_no, teacher_name, teacher_password
     </sql>
 
 </mapper>

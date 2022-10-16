@@ -1,6 +1,7 @@
 package com.code.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.code.pojo.Msg;
 import com.code.pojo.Personalinformation;
@@ -38,30 +39,26 @@ public class PersonalinformationController {
         String teacher_id = map.get("teacher_id").toString();
         String student_id = map.get("student_id").toString();
 
-        QueryWrapper queryWrapper = new QueryWrapper();
-
-
-
+        LambdaQueryWrapper<Personalinformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         if(teacher_id.equals(""))
         {
 
-            queryWrapper.eq("student_id",student_id);
-            Personalinformation personalinformation = personalinformationService.getOne(queryWrapper);
+            lambdaQueryWrapper.eq(Personalinformation::getStudentId,student_id);
+            Personalinformation personalinformation = personalinformationService.getOne(lambdaQueryWrapper);
+
             if(personalinformation==null){
-                return Msg.fail().add("pi",null);
+                return Msg.fail();
             }
             return Msg.success().add("pi",personalinformation);
 
         }
         else{
-
-            queryWrapper.eq("teacher_id",teacher_id);
-            Personalinformation personalinformation = personalinformationService.getOne(queryWrapper);
+            lambdaQueryWrapper.eq(Personalinformation::getTeacherId,teacher_id);
+            Personalinformation personalinformation = personalinformationService.getOne(lambdaQueryWrapper);
             if(personalinformation==null){
-                return Msg.fail().add("pi",null);
+                return Msg.fail();
             }
             return Msg.success().add("pi",personalinformation);
-
         }
 
     }

@@ -1,6 +1,6 @@
 package com.code.service;
 
-import com.code.pojo.TStudent;
+import com.code.pojo.AnswerRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author xiaoshuai
  * @since 2022-10-17
  */
-public interface TStudentService extends IService<TStudent> {
+public interface AnswerRecordService extends IService<AnswerRecord> {
 
 }

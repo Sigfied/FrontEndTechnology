@@ -1,7 +1,7 @@
 package com.code.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,28 +21,18 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Itemset implements Serializable {
+@TableName("AnswerRecord")
+public class AnswerRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "itemset_id", type = IdType.AUTO)
+    @TableId(value = "sutdent_item_id", type = IdType.AUTO)
+    private Integer sutdentItemId;
+
     private Integer itemsetId;
 
-    private String itemsetTopic;
-
-    private Integer itemsetGrade;
-
-    private String itemsetStatus;
-
-    private String itemsetType;
-
-    private String itemsetNotice;
-
-    @TableField("itemset_startTime")
-    private Date itemsetStarttime;
-
-    @TableField("itemset_endTIme")
-    private Date itemsetEndtime;
+    @TableField("checkingRate")
+    private Float checkingRate;
 
 
 }

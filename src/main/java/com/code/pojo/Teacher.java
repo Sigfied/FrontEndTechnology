@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-16
+ * @since 2022-10-17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -25,6 +25,8 @@ public class Teacher implements Serializable {
 
     @TableId(value = "teacher_id", type = IdType.AUTO)
     private Integer teacherId;
+
+    private String teacherNo;
 
     private String teacherName;
 

@@ -19,28 +19,24 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Item implements Serializable {
+public class Testcase implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "item_id", type = IdType.AUTO)
+    @TableId(value = "testcase_id", type = IdType.AUTO)
+    private Integer testcaseId;
+
     private Integer itemId;
 
-    private String itemTitle;
+    private String testcaseInput;
 
-    private Integer itemGrade;
+    private String testcaseOutput;
 
-    private String itemType;
+    private String testcaseName;
 
-    private String itemContent;
+    private Integer testcaseGrade;
 
-    private String itemTips;
-
-    private String itemLanguage;
-
-    private Integer itemDifficulty;
-
-    private String itemKnowledge;
+    private Integer flag;
 
 
 }

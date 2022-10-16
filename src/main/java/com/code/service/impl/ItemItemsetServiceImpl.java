@@ -1,8 +1,8 @@
 package com.code.service.impl;
 
-import com.code.pojo.ClazzStudent;
-import com.code.mapper.ClazzStudentMapper;
-import com.code.service.ClazzStudentService;
+import com.code.pojo.ItemItemset;
+import com.code.mapper.ItemItemsetMapper;
+import com.code.service.ItemItemsetService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-10-17
  */
 @Service
-public class ClazzStudentServiceImpl extends ServiceImpl<ClazzStudentMapper, ClazzStudent> implements ClazzStudentService {
+public class ItemItemsetServiceImpl extends ServiceImpl<ItemItemsetMapper, ItemItemset> implements ItemItemsetService {
 
 }

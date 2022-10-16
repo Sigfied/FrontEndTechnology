@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.mapper.TestcaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.pojo.Testcase">
+        <id column="testcase_id" property="testcaseId" />
+        <result column="item_id" property="itemId" />
+        <result column="testcase_input" property="testcaseInput" />
+        <result column="testcase_output" property="testcaseOutput" />
+        <result column="testcase_name" property="testcaseName" />
+        <result column="testcase_grade" property="testcaseGrade" />
+        <result column="flag" property="flag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        testcase_id, item_id, testcase_input, testcase_output, testcase_name, testcase_grade, flag
+    </sql>
+
+</mapper>

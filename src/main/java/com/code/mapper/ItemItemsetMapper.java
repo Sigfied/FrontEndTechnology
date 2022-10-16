@@ -1,6 +1,6 @@
 package com.code.mapper;
 
-import com.code.pojo.TStudent;
+import com.code.pojo.ItemItemset;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-10-17
  */
 @Mapper
-public interface TStudentMapper extends BaseMapper<TStudent> {
+public interface ItemItemsetMapper extends BaseMapper<ItemItemset> {
 
 }

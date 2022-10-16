@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-16
+ * @since 2022-10-17
  */
 @Mapper
 public interface ClazzTeacherMapper extends BaseMapper<ClazzTeacher> {

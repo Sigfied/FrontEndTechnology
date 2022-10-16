@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-15
+ * @since 2022-10-17
  */
 public interface ItemsetService extends IService<Itemset> {
 
