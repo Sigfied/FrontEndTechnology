@@ -1,6 +1,7 @@
 package com.code.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.util.Date;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -19,16 +20,22 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Teacher implements Serializable {
+public class TSutdentItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "teacher_id", type = IdType.AUTO)
-    private Integer teacherId;
+    @TableId(value = "sutdent_item_id", type = IdType.AUTO)
+    private Integer sutdentItemId;
 
-    private String teacherName;
+    private Integer itemId;
 
-    private String teacherPassword;
+    private Integer studentId;
+
+    private String content;
+
+    private Integer score;
+
+    private Date fillTime;
 
 
 }

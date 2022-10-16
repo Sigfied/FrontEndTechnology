@@ -1,6 +1,6 @@
 package com.code.service;
 
-import com.code.pojo.Teacher;
+import com.code.pojo.Item;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author xiaoshuai
  * @since 2022-10-16
  */
-public interface TeacherService extends IService<Teacher> {
+public interface ItemService extends IService<Item> {
 
 }

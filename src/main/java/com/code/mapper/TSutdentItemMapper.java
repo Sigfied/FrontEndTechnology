@@ -1,6 +1,6 @@
 package com.code.mapper;
 
-import com.code.pojo.Teacher;
+import com.code.pojo.TSutdentItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-10-16
  */
 @Mapper
-public interface TeacherMapper extends BaseMapper<Teacher> {
+public interface TSutdentItemMapper extends BaseMapper<TSutdentItem> {
 
 }

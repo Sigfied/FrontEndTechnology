@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.mapper.TSutdentItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.pojo.TSutdentItem">
+        <id column="sutdent_item_id" property="sutdentItemId" />
+        <result column="item_id" property="itemId" />
+        <result column="student_id" property="studentId" />
+        <result column="content" property="content" />
+        <result column="score" property="score" />
+        <result column="fill_time" property="fillTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sutdent_item_id, item_id, student_id, content, score, fill_time
+    </sql>
+
+</mapper>

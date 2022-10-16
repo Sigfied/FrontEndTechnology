@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.mapper.ItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.code.pojo.Item">
+        <id column="item_id" property="itemId" />
+        <result column="item_title" property="itemTitle" />
+        <result column="item_grade" property="itemGrade" />
+        <result column="item_type" property="itemType" />
+        <result column="item_content" property="itemContent" />
+        <result column="item_tips" property="itemTips" />
+        <result column="item_language" property="itemLanguage" />
+        <result column="item_difficulty" property="itemDifficulty" />
+        <result column="item_knowledge" property="itemKnowledge" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        item_id, item_title, item_grade, item_type, item_content, item_tips, item_language, item_difficulty, item_knowledge
+    </sql>
+
+</mapper>

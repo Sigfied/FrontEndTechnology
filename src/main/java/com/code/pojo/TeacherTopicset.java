@@ -19,16 +19,14 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Teacher implements Serializable {
+public class TeacherTopicset implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "teacher_id", type = IdType.AUTO)
     private Integer teacherId;
 
-    private String teacherName;
-
-    private String teacherPassword;
+    private Integer itemsetId;
 
 
 }
