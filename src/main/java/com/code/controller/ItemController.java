@@ -3,18 +3,14 @@ package com.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.code.pojo.Item;
-import com.code.pojo.Msg;
 import com.code.service.ItemService;
-import com.code.service.ItemsetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * <p>
@@ -33,19 +29,11 @@ public class ItemController {
 
     @ResponseBody
     @RequestMapping("item_info")
-    public Msg getItem(@RequestBody Map<String, Object>map){
-
-        String item_id = map.get("item_id").toString();
+    public Item getItem(@RequestBody Map<String, Object>map){
+        String itemId = map.get("item_id").toString();
         LambdaQueryWrapper<Item> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(Item::getItemId,item_id);
-        Item item = itemService.getOne(lambdaQueryWrapper);
-
-        if(item.equals(null)){
-            return Msg.fail();
-        }
-        return Msg.success().add("item",item);
-
-
+        lambdaQueryWrapper.eq(Item::getItemId,itemId);
+        return itemService.getOne(lambdaQueryWrapper);
     }
 
 

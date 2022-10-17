@@ -60,6 +60,5 @@ public class Msg {
 	public void setExtend(Map<String, Object> extend) {
 		this.extend = extend;
 	}
-	
-	
+
 }

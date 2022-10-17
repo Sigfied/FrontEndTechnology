@@ -2,18 +2,15 @@ package com.code.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.code.pojo.*;
 import com.code.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Wrapper;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,39 +26,49 @@ import java.util.Map;
 @RequestMapping("/itemSet")
 public class ItemsetController {
 
+    private final ItemsetService itemsetService;
+
+    private final ClazzStudentService clazzStudentService;
+
+    private final ClazzTeacherService clazzTeacherService;
+
+    private final TeacherTopicsetService teacherTopicsetService;
+
+    private final TSutdentItemService tSutdentItemService;
+
     @Autowired
-    private ItemsetService itemsetService;
-    @Autowired
-    private ClazzStudentService clazzStudentService;
-    @Autowired
-    private ClazzTeacherService clazzTeacherService;
-    @Autowired
-    private TeacherTopicsetService teacherTopicsetService;
-    @Autowired
-    private TSutdentItemService tSutdentItemService;
+    public ItemsetController(ItemsetService itemsetService, ClazzStudentService clazzStudentService,
+                             ClazzTeacherService clazzTeacherService, TeacherTopicsetService teacherTopicsetService,
+                             TSutdentItemService tSutdentItemService) {
+        this.itemsetService = itemsetService;
+        this.clazzStudentService = clazzStudentService;
+        this.clazzTeacherService = clazzTeacherService;
+        this.teacherTopicsetService = teacherTopicsetService;
+        this.tSutdentItemService = tSutdentItemService;
+    }
 
     @ResponseBody
     @RequestMapping("my_set")
-    public Msg getMySet(@RequestBody Map<String,Object> map){
+    public List<Itemset> getMySet(@RequestBody Map<String,Object> map){
 
-        String student_id = map.get("student_id").toString();
+        String studentId = map.get("student_id").toString();
         LambdaQueryWrapper<ClazzStudent> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ClazzStudent::getStudentId,student_id);
+        queryWrapper.eq(ClazzStudent::getStudentId,studentId);
         ClazzStudent clazzStudent = clazzStudentService.getOne(queryWrapper);
 
-        String clazz_no = clazzStudent.getClazzNo();
+        String clazzNo = clazzStudent.getClazzNo();
         LambdaQueryWrapper<ClazzTeacher> queryWrapper1 = new LambdaQueryWrapper<>();
-        queryWrapper1.eq(ClazzTeacher::getClazzNo,clazz_no);
+        queryWrapper1.eq(ClazzTeacher::getClazzNo,clazzNo);
         ClazzTeacher clazzTeacher = clazzTeacherService.getOne(queryWrapper1);
 
-        int teacher_id = clazzTeacher.getTeacherId();
+        int teacherId = clazzTeacher.getTeacherId();
         LambdaQueryWrapper<TeacherTopicset> queryWrapper2 = new LambdaQueryWrapper<>();
-        queryWrapper2.eq(TeacherTopicset::getTeacherId,teacher_id);
+        queryWrapper2.eq(TeacherTopicset::getTeacherId,teacherId);
         List<TeacherTopicset> list = teacherTopicsetService.list(queryWrapper2);
 
-        if(list.equals(null))
+        if(list == null)
         {
-            return Msg.fail().add("mySet",null);
+            return null;
         }
 
 
@@ -72,9 +79,7 @@ public class ItemsetController {
             num.add(node.getItemsetId());
         }
         queryWrapper3.in(Itemset::getItemsetId,num);
-        List<Itemset> itemSetList = itemsetService.list(queryWrapper3);
-
-        return Msg.success().add("public_set",itemSetList);
+        return itemsetService.list(queryWrapper3);
 
 
     }
@@ -82,38 +87,35 @@ public class ItemsetController {
 
     @ResponseBody
     @RequestMapping("public_set")
-    public Msg getPublicSet(){
+    public List<Itemset> getPublicSet(){
 
         LambdaQueryWrapper<Itemset> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
         lambdaQueryWrapper.eq(Itemset::getItemsetStatus,1);
-        List<Itemset> itemSet = itemsetService.list(lambdaQueryWrapper);
+       return itemsetService.list(lambdaQueryWrapper);
 
-        return Msg.success().add("public_set",itemSet);
 
     }
-
 
     @ResponseBody
     @RequestMapping("itemSet_info")
-    public Msg getItemSetInfo(@RequestBody Map<String,Object> map){
-        String itemSet_id = map.get("itemSet_id").toString();
+    public Map<String, Object> getItemSetInfo(@RequestBody Map<String,Object> map){
+        String itemSetId = map.get("itemSet_id").toString();
         LambdaQueryWrapper<Itemset> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
-        lambdaQueryWrapper.eq(Itemset::getItemsetId,itemSet_id);
+        lambdaQueryWrapper.eq(Itemset::getItemsetId,itemSetId);
         Itemset itemset = itemsetService.getOne(lambdaQueryWrapper);
 
-        String student_id = map.get("student_id").toString();
+        String studentId = map.get("student_id").toString();
         LambdaQueryWrapper<TSutdentItem> lambdaQueryWrapper1 = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper1.eq(TSutdentItem::getStudentId,student_id);
+        lambdaQueryWrapper1.eq(TSutdentItem::getStudentId,studentId);
 
         List<TSutdentItem> list = tSutdentItemService.list(lambdaQueryWrapper1);
-
-        return Msg.success().add("itemSet",itemset).add("student",list);
-
+        Map<String,Object> hashMap = new HashMap<>(2);
+        hashMap.put("itemSet",itemset);
+        hashMap.put("student",list);
+        return hashMap;
     }
-
-
 
 }
 
