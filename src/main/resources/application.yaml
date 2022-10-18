@@ -10,3 +10,8 @@ spring:
     password: 123456
     port: 6379
     database: 0
+
+
+file:
+  input-path: E:\桌面\实验报告\实训\FrontEndTechnology\src\main\resources\words\inputs\
+  output-path: E:\桌面\实验报告\实训\FrontEndTechnology\src\main\resources\words\outputs\
