@@ -4,7 +4,13 @@ spring:
     password: code
     url: jdbc:mysql://120.25.192.9:3306/code?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  mail:
+    default-encoding: utf-8
+    username: 2034689681@qq.com
+    password: mjolwzyowjwrbdgi
+    host: smtp.qq.com
+    protocol: smtp
+    test-connection: true
   redis:
     host: 114.132.64.132
     password: 123456
@@ -15,3 +21,4 @@ spring:
 file:
   input-path: E:\桌面\实验报告\实训\FrontEndTechnology\src\main\resources\words\inputs\
   output-path: E:\桌面\实验报告\实训\FrontEndTechnology\src\main\resources\words\outputs\
+
