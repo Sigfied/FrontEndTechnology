@@ -61,7 +61,7 @@ public class ItemsetController {
         queryWrapper1.eq(ClazzTeacher::getClazzNo,clazzNo);
         ClazzTeacher clazzTeacher = clazzTeacherService.getOne(queryWrapper1);
 
-        int teacherId = clazzTeacher.getTeacherId();
+        Long teacherId = clazzTeacher.getTeacherId();
         LambdaQueryWrapper<TeacherTopicset> queryWrapper2 = new LambdaQueryWrapper<>();
         queryWrapper2.eq(TeacherTopicset::getTeacherId,teacherId);
         List<TeacherTopicset> list = teacherTopicsetService.list(queryWrapper2);
@@ -74,7 +74,7 @@ public class ItemsetController {
 
         LambdaQueryWrapper<Itemset> queryWrapper3 = new LambdaQueryWrapper<>();
 
-        List<Integer> num = new ArrayList<>();
+        List<Long> num = new ArrayList<>();
         for (TeacherTopicset node : list) {
             num.add(node.getItemsetId());
         }

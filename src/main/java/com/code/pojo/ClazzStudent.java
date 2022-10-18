@@ -1,12 +1,12 @@
 package com.code.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -26,7 +26,7 @@ public class ClazzStudent implements Serializable {
     @TableId(value = "clazz_no", type = IdType.AUTO)
     private String clazzNo;
 
-    private Integer studentId;
+    private Long studentId;
 
 
 }

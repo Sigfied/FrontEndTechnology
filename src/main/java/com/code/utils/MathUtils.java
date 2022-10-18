@@ -55,7 +55,7 @@ public class MathUtils {
 
     public static String getPrimaryKey(){
         //随机7位数
-        return MathUtils.makeUpNewData(Thread.currentThread().hashCode()+"", 3)+   MathUtils.randomDigitNumber(7);
+        return MathUtils.makeUpNewData(Thread.currentThread().hashCode()+"", 3)+   MathUtils.randomDigitNumber(6);
     }
 
 }

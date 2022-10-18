@@ -1,5 +1,7 @@
 package com.code.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,16 +21,15 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class Personalinformation implements Serializable {
 
-    private long serialVersionUID;
+    private Long teacherId;
 
-    private Integer teacherId;
-
-    private Integer studentId;
+    private Long studentId;
 
     private String piEmail;
 
     private String piSchool;
 
+    @TableId(value = "pi_uid",type = IdType.INPUT)
     private String piUid;
 
     private String piRole;

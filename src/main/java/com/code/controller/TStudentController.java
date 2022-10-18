@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>
@@ -35,18 +36,18 @@ import java.util.Map;
 public class TStudentController {
 
 
-    private TStudentService tStudentService;
+    private final TStudentService tStudentService;
 
-    private TeacherService teacherService;
+    private final TeacherService teacherService;
 
-    private final RedisTemplate redisTemplate;
+    private final RedisTemplate<String,Object> redisTemplate;
 
     private final PersonalinformationService personService;
 
-    private Logger logger = LoggerFactory.getLogger(TStudentController.class);
+    private final Logger logger = LoggerFactory.getLogger(TStudentController.class);
 
     @Autowired
-    public TStudentController(TStudentService tStudentService, TeacherService teacherService, RedisTemplate redisTemplate, PersonalinformationService personService) {
+    public TStudentController(TStudentService tStudentService, TeacherService teacherService, RedisTemplate<String,Object> redisTemplate, PersonalinformationService personService) {
         this.tStudentService = tStudentService;
         this.teacherService = teacherService;
         this.redisTemplate = redisTemplate;
@@ -85,7 +86,7 @@ public class TStudentController {
         String email = params.get("email");
         String pwd = params.get("password");
         String captcha = params.get("captcha");
-        TStudent student = null;
+        TStudent student;
         if(redisTemplate.opsForValue().get(email) != null && captcha.equals(redisTemplate.opsForValue().get(email))){
             student = new TStudent();
             //这里使用UUID作为唯一id
@@ -93,9 +94,11 @@ public class TStudentController {
             student.setStudentPassword(pwd);
             logger.info("Student:\t{}",student);
             tStudentService.saveOrUpdate(student);
+            student.setStudentPassword(null);
             Personalinformation ps = new Personalinformation();
             ps.setPiEmail(email);
             ps.setPiUid(MathUtils.getPrimaryKey());
+            ps.setStudentId(student.getStudentId());
             personService.saveOrUpdate(ps);
             return student;
         }
@@ -105,7 +108,7 @@ public class TStudentController {
     }
 
     @GetMapping("/captcha")
-    public String getCaptcha(@RequestBody Map<String,String> params) throws Exception {
+    public String getCaptcha(@RequestBody Map<String,String> params) {
        String email = params.get("email");
        String code = VerCodeGenerateUtil.generateVerCode();
        String rs = "Successfully";
@@ -119,6 +122,32 @@ public class TStudentController {
        return rs;
     }
 
+    @PutMapping("/update")
+    public String update(@RequestBody Map<String,String> params){
+        String studentId = params.get("studentId");
+        String studentName = params.get("studentName");
+        String studentNo = params.get("studentNo");
+        String school = params.get("school");
+        String phone = params.get("phone");
 
+        LambdaQueryWrapper<TStudent>  lmS = new LambdaQueryWrapper<>();
+        lmS.eq(TStudent::getStudentId, studentId);
+        TStudent student = tStudentService.getOne(lmS);
+        //使用 Optional 进行判空
+        student = Optional.ofNullable(student).orElse(new TStudent());
+        student.setStudentNo(studentNo);
+        student.setStudentName(studentName);
+        tStudentService.saveOrUpdate(student);
+
+        LambdaQueryWrapper<Personalinformation> lmP = new LambdaQueryWrapper<>();
+        lmP.eq(Personalinformation::getStudentId, studentId);
+        Personalinformation one = personService.getOne(lmP);
+        one = Optional.ofNullable(one).orElse(new Personalinformation());
+        one.setPiPhone(phone);
+        one.setPiSchool(school);
+
+        personService.saveOrUpdate(one);
+        return "success";
+    }
 }
 

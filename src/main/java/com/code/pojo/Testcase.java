@@ -1,12 +1,12 @@
 package com.code.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -24,9 +24,9 @@ public class Testcase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "testcase_id", type = IdType.AUTO)
-    private Integer testcaseId;
+    private Long testcaseId;
 
-    private Integer itemId;
+    private Long itemId;
 
     private String testcaseInput;
 

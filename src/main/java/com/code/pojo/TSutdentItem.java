@@ -1,13 +1,13 @@
 package com.code.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -25,9 +25,9 @@ public class TSutdentItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "sutdent_item_id", type = IdType.AUTO)
-    private Integer sutdentItemId;
+    private Long sutdentItemId;
 
-    private Integer itemId;
+    private Long itemId;
 
     private Integer studentId;
 

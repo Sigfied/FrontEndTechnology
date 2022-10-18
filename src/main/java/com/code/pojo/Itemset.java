@@ -1,14 +1,14 @@
 package com.code.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -26,7 +26,7 @@ public class Itemset implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "itemset_id", type = IdType.AUTO)
-    private Integer itemsetId;
+    private Long itemsetId;
 
     private String itemsetTopic;
 

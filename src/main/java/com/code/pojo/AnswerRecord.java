@@ -1,14 +1,14 @@
 package com.code.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -27,9 +27,9 @@ public class AnswerRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "sutdent_item_id", type = IdType.AUTO)
-    private Integer sutdentItemId;
+    private Long sutdentItemId;
 
-    private Integer itemsetId;
+    private Long itemsetId;
 
     @TableField("checkingRate")
     private Float checkingRate;
