@@ -3,16 +3,22 @@ package com.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.code.pojo.Msg;
+import com.code.pojo.Personalinformation;
 import com.code.pojo.TStudent;
 import com.code.pojo.Teacher;
+import com.code.service.PersonalinformationService;
 import com.code.service.TStudentService;
 import com.code.service.TeacherService;
+import com.code.utils.MailUtils;
+import com.code.utils.MathUtils;
+import com.code.utils.VerCodeGenerateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 /**
@@ -35,11 +41,16 @@ public class TStudentController {
 
     private final RedisTemplate redisTemplate;
 
+    private final PersonalinformationService personService;
+
+    private Logger logger = LoggerFactory.getLogger(TStudentController.class);
+
     @Autowired
-    public TStudentController(TStudentService tStudentService, TeacherService teacherService, RedisTemplate redisTemplate) {
+    public TStudentController(TStudentService tStudentService, TeacherService teacherService, RedisTemplate redisTemplate, PersonalinformationService personService) {
         this.tStudentService = tStudentService;
         this.teacherService = teacherService;
         this.redisTemplate = redisTemplate;
+        this.personService = personService;
     }
 
     @RequestMapping("/login")
@@ -72,14 +83,20 @@ public class TStudentController {
     @PostMapping("/register")
     public TStudent register(@RequestBody Map<String,String> params){
         String email = params.get("email");
-        String pwd = params.get("pwd");
+        String pwd = params.get("password");
         String captcha = params.get("captcha");
         TStudent student = null;
         if(redisTemplate.opsForValue().get(email) != null && captcha.equals(redisTemplate.opsForValue().get(email))){
             student = new TStudent();
             //这里使用UUID作为唯一id
-            student.setStudentId(generateShortId().intValue());
+            student.setStudentId(Long.valueOf(MathUtils.getPrimaryKey()));
             student.setStudentPassword(pwd);
+            logger.info("Student:\t{}",student);
+            tStudentService.saveOrUpdate(student);
+            Personalinformation ps = new Personalinformation();
+            ps.setPiEmail(email);
+            ps.setPiUid(MathUtils.getPrimaryKey());
+            personService.saveOrUpdate(ps);
             return student;
         }
         else{
@@ -88,32 +105,20 @@ public class TStudentController {
     }
 
     @GetMapping("/captcha")
-    public Object getCaptcha(@RequestBody Map<String,String> params){
+    public String getCaptcha(@RequestBody Map<String,String> params) throws Exception {
        String email = params.get("email");
-       return redisTemplate.opsForValue().get(email);
+       String code = VerCodeGenerateUtil.generateVerCode();
+       String rs = "Successfully";
+       try {
+           MailUtils.sendMail(email,code);
+       }
+       catch (Exception e){
+           rs = "Error: " + e.getMessage();
+       }
+       redisTemplate.opsForValue().set(email,code);
+       return rs;
     }
 
-    private static Long generateShortId() {
-        // 2 位年份后两位 22001 后五位走随机  每天清一次缓存 99999 10
-        StringBuilder idSb = new StringBuilder();
-        /// 年份后两位  和  一年中的第几天
-        LocalDate now = LocalDate.now();
-        String year = now.getYear() + "";
-        year = year.substring(2);
-        String day = now.getDayOfYear() + "";
-        /// 补0
-        if (day.length() < 3) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("0".repeat(3 - day.length()));
-            day = sb.append(day).toString();
-        }
-        idSb.append(year).append(day);
-        /// 后五位补随机数
-        for (int i = idSb.length(); i < 10; i++) {
-            idSb.append((int) (Math.random() * 10));
-        }
-        return Long.parseLong(idSb.toString());
-    }
 
 }
 

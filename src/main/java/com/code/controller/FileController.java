@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class FileController {
 
     private static final Logger LOGGER =  LoggerFactory.getLogger(FileController.class);
 
-    private FileOption fileOption;
+    private FileOption fileOption = null;
 
     @Autowired
     public FileController(FileOption fileOption) {
@@ -59,38 +60,31 @@ public class FileController {
         return info;
     }
 
-
-    @RequestMapping("download")
-    public String fileDownLoad(HttpServletResponse response){
-        String res = "download successfully";
+    public  static void fileDownLoad(HttpServletResponse response, FileOption fileOption){
         File file = new File(fileOption.outputPath + "output.docx");
         if(!file.exists()){
-            res = "error";
-            return res ;
+            return;
         }
         response.reset();
         response.setContentType("application/octet-stream");
         response.setCharacterEncoding("utf-8");
         response.setContentLength((int) file.length());
         response.setHeader("Content-Disposition", "attachment;filename=" + "output.docx" );
-        try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));) {
+        try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
             byte[] buff = new byte[1024];
             OutputStream os  = response.getOutputStream();
-            int i = 0;
+            int i;
             while ((i = bis.read(buff)) != -1) {
                 os.write(buff, 0, i);
                 os.flush();
             }
         } catch (IOException e) {
             LOGGER.error("{e}",e);
-            res = "download failed";
-            return res;
         }
-        return res;
     }
 
     @PostMapping("test")
-    public Map<String,Object> getTestInfo(@RequestBody Map<String,Object> info) throws IOException {
+    public Map<String,Object> getTestInfo(@RequestBody Map<String,Object> info,HttpServletResponse response) throws IOException {
         LocalDateTime time = LocalDateTime.now();
         int year = time.getYear();
         int month = time.getMonth().getValue();
@@ -102,7 +96,7 @@ public class FileController {
         List<String>  task = (List<String> )info.get("task");
         List<String>  result = (List<String>) info.get("result");
         String experience = (String) info.get("experience");
-
+        LOGGER.info("{}{}{}{}{}{}{}", studentNo, studentName, testName,purpose, task,result,experience);
         String absolutePath = fileOption.inputPath+"template.docx";
         HashMap<String, Object> rs = new HashMap<>(16) {
             {
@@ -120,6 +114,9 @@ public class FileController {
         };
         XWPFTemplate template = XWPFTemplate.compile(absolutePath).render(rs);
         template.writeAndClose(new FileOutputStream(fileOption.outputPath+"output.docx"));
+        fileDownLoad(response,fileOption);
+        FileSystemUtils.deleteRecursively(new File(fileOption.outputPath+"output.docx"));
+        template.close();
         return rs;
     }
 
