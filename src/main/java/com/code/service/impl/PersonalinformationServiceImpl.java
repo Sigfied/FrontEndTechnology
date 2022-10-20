@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-17
+ * @since 2022-10-20
  */
 @Service
 public class PersonalinformationServiceImpl extends ServiceImpl<PersonalinformationMapper, Personalinformation> implements PersonalinformationService {

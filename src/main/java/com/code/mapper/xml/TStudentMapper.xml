@@ -8,12 +8,13 @@
         <result column="student_no" property="studentNo" />
         <result column="student_name" property="studentName" />
         <result column="student_password" property="studentPassword" />
+        <result column="clazz_no" property="clazzNo" />
         <result column="memo" property="memo" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        student_id, student_no, student_name, student_password, memo
+        student_id, student_no, student_name, student_password, clazz_no, memo
     </sql>
 
 </mapper>

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author xiaoshuai
- * @since 2022-10-17
+ * @since 2022-10-20
  */
 public interface ClazzService extends IService<Clazz> {
 
