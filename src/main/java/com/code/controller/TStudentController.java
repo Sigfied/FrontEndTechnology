@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -80,17 +81,12 @@ public class TStudentController {
         if(tStudent==null){
             if(teacher==null){
                 if(personalinformation!=null){
-                    long student_id = personalinformation.getStudentId();
-
+                    long studentId = personalinformation.getStudentId();
                     LambdaQueryWrapper<TStudent> lambdaQueryWrapper3 = new LambdaQueryWrapper<>();
                     lambdaQueryWrapper3.eq(TStudent::getStudentPassword,pwd);
-                    lambdaQueryWrapper3.eq(TStudent::getStudentId,student_id);
+                    lambdaQueryWrapper3.eq(TStudent::getStudentId,studentId);
                     TStudent tStudent1 = tStudentService.getOne(lambdaQueryWrapper3);
-                    if(tStudent1==null)
-                    {
-                        return Msg.fail();
-                    }
-                    return tStudent1;
+                    return Objects.requireNonNullElseGet(tStudent1, Msg::fail);
                 }
                 return Msg.fail();
             }
