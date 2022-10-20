@@ -24,9 +24,9 @@ public class TeacherTopicset implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "teacher_id", type = IdType.AUTO)
-    private Integer teacherId;
+    private long teacherId;
 
-    private Integer itemsetId;
+    private long itemsetId;
 
 
 }

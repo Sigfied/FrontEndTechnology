@@ -25,15 +25,15 @@ public class TSutdentItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "sutdent_item_id", type = IdType.AUTO)
-    private Integer sutdentItemId;
+    private long sutdentItemId;
 
-    private Integer itemId;
+    private long itemId;
 
-    private Integer studentId;
+    private long studentId;
 
     private String content;
 
-    private Integer score;
+    private long score;
 
     private Date fillTime;
 

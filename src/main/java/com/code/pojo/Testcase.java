@@ -24,9 +24,9 @@ public class Testcase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "testcase_id", type = IdType.AUTO)
-    private Integer testcaseId;
+    private long testcaseId;
 
-    private Integer itemId;
+    private long itemId;
 
     private String testcaseInput;
 
@@ -34,9 +34,9 @@ public class Testcase implements Serializable {
 
     private String testcaseName;
 
-    private Integer testcaseGrade;
+    private long testcaseGrade;
 
-    private Integer flag;
+    private long flag;
 
 
 }

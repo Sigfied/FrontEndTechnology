@@ -23,9 +23,9 @@ public class Personalinformation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer teacherId;
+    private long teacherId;
 
-    private Integer studentId;
+    private long studentId;
 
     private String piEmail;
 

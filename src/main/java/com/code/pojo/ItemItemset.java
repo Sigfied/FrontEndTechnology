@@ -25,11 +25,11 @@ public class ItemItemset implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "item_id", type = IdType.AUTO)
-    private Integer itemId;
+    private long itemId;
 
-    private Integer itemsetId;
+    private long itemsetId;
 
-    private Integer sortId;
+    private long sortId;
 
     @TableField("passingRate")
     private Float passingRate;

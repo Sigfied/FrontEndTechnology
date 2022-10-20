@@ -26,11 +26,11 @@ public class Itemset implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "itemset_id", type = IdType.AUTO)
-    private Integer itemsetId;
+    private long itemsetId;
 
     private String itemsetTopic;
 
-    private Integer itemsetGrade;
+    private long itemsetGrade;
 
     private String itemsetStatus;
 

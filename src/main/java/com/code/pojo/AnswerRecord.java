@@ -27,9 +27,9 @@ public class AnswerRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "sutdent_item_id", type = IdType.AUTO)
-    private Integer sutdentItemId;
+    private long sutdentItemId;
 
-    private Integer itemsetId;
+    private long itemsetId;
 
     @TableField("checkingRate")
     private Float checkingRate;

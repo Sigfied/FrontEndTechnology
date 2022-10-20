@@ -1,6 +1,7 @@
 package com.code.controller;
 
 
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.code.pojo.*;
 import com.code.service.*;
@@ -36,15 +37,21 @@ public class ItemsetController {
 
     private final TSutdentItemService tSutdentItemService;
 
+    private final ItemItemsetService itemItemsetService;
+
+    private final ItemService itemService;
+
     @Autowired
-    public ItemsetController(ItemsetService itemsetService,TStudentService tStudentService,
+    public ItemsetController(ItemsetService itemsetService,TStudentService tStudentService,ItemItemsetService itemItemsetService,
                              ClazzTeacherService clazzTeacherService, TeacherTopicsetService teacherTopicsetService,
-                             TSutdentItemService tSutdentItemService) {
+                             TSutdentItemService tSutdentItemService,ItemService itemService) {
         this.itemsetService = itemsetService;
         this.tStudentService = tStudentService;
         this.clazzTeacherService = clazzTeacherService;
         this.teacherTopicsetService = teacherTopicsetService;
         this.tSutdentItemService = tSutdentItemService;
+        this.itemItemsetService = itemItemsetService;
+        this.itemService = itemService;
     }
 
     @ResponseBody
@@ -62,7 +69,7 @@ public class ItemsetController {
         queryWrapper1.eq(ClazzTeacher::getClazzNo,clazzNo);
         ClazzTeacher clazzTeacher = clazzTeacherService.getOne(queryWrapper1);
 
-        int teacherId = clazzTeacher.getTeacherId();
+        Long teacherId = clazzTeacher.getTeacherId();
         LambdaQueryWrapper<TeacherTopicset> queryWrapper2 = new LambdaQueryWrapper<>();
         queryWrapper2.eq(TeacherTopicset::getTeacherId,teacherId);
         List<TeacherTopicset> list = teacherTopicsetService.list(queryWrapper2);
@@ -116,6 +123,35 @@ public class ItemsetController {
         hashMap.put("itemSet",itemset);
         hashMap.put("student",list);
         return hashMap;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("itemSet_list")
+    public Map<String,Object> getItemSet_list(@RequestBody Map<String, Object>map){
+//        String student_id = map.get("student_id").toString();
+
+        String itemSet_id = map.get("itemSet_id").toString();
+
+        LambdaQueryWrapper<ItemItemset> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(ItemItemset::getItemsetId,itemSet_id);
+        List<ItemItemset> itemItemsetList = itemItemsetService.list(lambdaQueryWrapper);
+
+        List<Item> itemList = new ArrayList<>();
+
+        for (ItemItemset itemItemset:itemItemsetList) {
+            LambdaQueryWrapper<Item> lambdaQueryWrapper1 = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper1.eq(Item::getItemId,itemItemset.getItemId());
+            itemList.add(itemService.getOne(lambdaQueryWrapper1));
+
+        }
+
+        Map<String,Object> hashMap = new HashMap<>(2);
+        hashMap.put("itemItemsetList",itemItemsetList);
+        hashMap.put("itemList",itemList);
+
+        return hashMap;
+
     }
 
 }

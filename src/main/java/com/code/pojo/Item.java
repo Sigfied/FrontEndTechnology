@@ -24,11 +24,11 @@ public class Item implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "item_id", type = IdType.AUTO)
-    private Integer itemId;
+    private long itemId;
 
     private String itemTitle;
 
-    private Integer itemGrade;
+    private long itemGrade;
 
     private String itemType;
 
@@ -38,7 +38,7 @@ public class Item implements Serializable {
 
     private String itemLanguage;
 
-    private Integer itemDifficulty;
+    private long itemDifficulty;
 
     private String itemKnowledge;
 

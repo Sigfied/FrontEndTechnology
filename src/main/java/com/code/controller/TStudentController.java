@@ -35,7 +35,7 @@ import java.util.Optional;
 @CacheConfig(cacheNames = "user")
 public class TStudentController {
 
-
+    private final PersonalinformationService personalinformationService;
     private final TStudentService tStudentService;
 
     private final TeacherService teacherService;
@@ -47,16 +47,18 @@ public class TStudentController {
     private final Logger logger = LoggerFactory.getLogger(TStudentController.class);
 
     @Autowired
-    public TStudentController(TStudentService tStudentService, TeacherService teacherService, RedisTemplate<String,Object> redisTemplate, PersonalinformationService personService) {
+    public TStudentController(TStudentService tStudentService, TeacherService teacherService, RedisTemplate<String,Object> redisTemplate, PersonalinformationService personService,PersonalinformationService personalinformationService) {
         this.tStudentService = tStudentService;
         this.teacherService = teacherService;
         this.redisTemplate = redisTemplate;
         this.personService = personService;
+        this.personalinformationService = personalinformationService;
     }
 
+    @ResponseBody
     @RequestMapping("/login")
     public Object login(@RequestBody Map<String,Object> map){
-
+        //学号、教师号、邮箱
         String no = map.get("no").toString();
         String pwd = map.get("pwd").toString();
 
@@ -68,16 +70,34 @@ public class TStudentController {
         lambdaQueryWrapper1.eq(Teacher::getTeacherNo,no);
         lambdaQueryWrapper1.eq(Teacher::getTeacherPassword,pwd);
 
+        LambdaQueryWrapper<Personalinformation> lambdaQueryWrapper2 = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper2.eq(Personalinformation::getPiEmail,no);
+
         TStudent tStudent = tStudentService.getOne(lambdaQueryWrapper);
         Teacher teacher = teacherService.getOne(lambdaQueryWrapper1);
+        Personalinformation personalinformation = personalinformationService.getOne(lambdaQueryWrapper2);
 
         if(tStudent==null){
             if(teacher==null){
+                if(personalinformation!=null){
+                    long student_id = personalinformation.getStudentId();
+
+                    LambdaQueryWrapper<TStudent> lambdaQueryWrapper3 = new LambdaQueryWrapper<>();
+                    lambdaQueryWrapper3.eq(TStudent::getStudentPassword,pwd);
+                    lambdaQueryWrapper3.eq(TStudent::getStudentId,student_id);
+                    TStudent tStudent1 = tStudentService.getOne(lambdaQueryWrapper3);
+                    if(tStudent1==null)
+                    {
+                        return Msg.fail();
+                    }
+                    return tStudent1;
+                }
                 return Msg.fail();
             }
             return teacher;
         }
         return tStudent;
+
     }
 
 
