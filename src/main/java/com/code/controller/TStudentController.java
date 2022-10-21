@@ -20,7 +20,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -31,6 +30,7 @@ import java.util.Optional;
  * @author xiaoshuai
  * @since 2022-10-14
  */
+@CrossOrigin(origins = {"*","null"})
 @RestController
 @RequestMapping("/user")
 @CacheConfig(cacheNames = "user")
@@ -63,6 +63,9 @@ public class TStudentController {
         String no = map.get("no").toString();
         String pwd = map.get("pwd").toString();
 
+        System.out.println(no);
+        System.out.println(pwd);
+
         LambdaQueryWrapper<TStudent> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(TStudent::getStudentNo,no);
         lambdaQueryWrapper.eq(TStudent::getStudentPassword,pwd);
@@ -81,14 +84,34 @@ public class TStudentController {
         if(tStudent==null){
             if(teacher==null){
                 if(personalinformation!=null){
+
                     long studentId = personalinformation.getStudentId();
-                    LambdaQueryWrapper<TStudent> lambdaQueryWrapper3 = new LambdaQueryWrapper<>();
-                    lambdaQueryWrapper3.eq(TStudent::getStudentPassword,pwd);
-                    lambdaQueryWrapper3.eq(TStudent::getStudentId,studentId);
-                    TStudent tStudent1 = tStudentService.getOne(lambdaQueryWrapper3);
-                    return Objects.requireNonNullElseGet(tStudent1, Msg::fail);
+                    long teacherId = personalinformation.getTeacherId();
+
+                    if(studentId==0){
+                        LambdaQueryWrapper<Teacher> lambdaQueryWrapper4 = new LambdaQueryWrapper<>();
+                        lambdaQueryWrapper4.eq(Teacher::getTeacherId,teacherId);
+                        lambdaQueryWrapper4.eq(Teacher::getTeacherPassword,pwd);
+                        Teacher teacher1 = teacherService.getOne(lambdaQueryWrapper4);
+                        if(teacher1==null){
+                            return Msg.fail();
+                        }
+
+                        return teacher1;
+                    }
+                    else{
+                        LambdaQueryWrapper<TStudent> lambdaQueryWrapper3 = new LambdaQueryWrapper<>();
+                        lambdaQueryWrapper3.eq(TStudent::getStudentPassword,pwd);
+                        lambdaQueryWrapper3.eq(TStudent::getStudentId,studentId);
+                        TStudent tStudent1 = tStudentService.getOne(lambdaQueryWrapper3);
+                        if(tStudent1==null)
+                        {
+                            return Msg.fail();
+                        }
+                        return tStudent1;
+                    }
                 }
-                return Msg.fail();
+                return new Exception("Object is not a student or teacher");
             }
             return teacher;
         }

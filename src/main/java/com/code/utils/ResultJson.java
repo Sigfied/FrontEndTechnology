@@ -12,7 +12,7 @@ import lombok.Data;
 public class ResultJson {
 
     private static final String SUCCESS_CODE = "200";
-
+    private static final String FAILURE_CODE = "100";
     /**
      * 状态码 正确为200
      */
@@ -39,9 +39,10 @@ public class ResultJson {
         this.data = data;
     }
 
-    public ResultJson(String code, String msg) {
-        this.code = code;
+    public ResultJson(String msg) {
+        this.code = FAILURE_CODE;
         this.msg = msg;
+
     }
 
     /**

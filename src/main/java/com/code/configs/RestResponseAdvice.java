@@ -2,8 +2,9 @@ package com.code.configs;
 
 import com.alibaba.fastjson.JSON;
 import com.code.utils.ResultJson;
-import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -18,10 +19,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author GYJ
  * @date 2022/10/17
  */
-@Slf4j
+
 @RestControllerAdvice
 public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
 
+
+    private static final Logger log = LoggerFactory.getLogger(RestResponseAdvice.class);
     @Override
     public boolean supports(@NotNull MethodParameter returnType,
                             @NotNull Class<? extends HttpMessageConverter<?>> converterType) {
@@ -43,17 +46,18 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
         // 指定返回的结果为application/json格式
         // 不指定，String类型转json后返回Content-Type是text/plain;charset=UTF-8
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-        ResultJson result = new ResultJson(body);
-        // 若返回类型是ResultJson，则不进行修改
-        if (body == null) {
-            if (returnType.getParameterType().isAssignableFrom(String.class)) {
-                return JSON.toJSONString(result);
-            }
-        } else if (body instanceof ResultJson) {
+        log.info("beforeBodyWrite: " + body);
+        if(body == null){
+            return new ResultJson("The result is null");
+        }
+        else if (body instanceof ResultJson) {
             return body;
         } else if (body instanceof String) {
-            return JSON.toJSONString(result);
+            return JSON.toJSONString(body);
         }
-        return result;
+        else if (body instanceof Exception){
+            return new ResultJson(((Exception) body).getMessage());
+        }
+        return new ResultJson(body);
     }
 }
