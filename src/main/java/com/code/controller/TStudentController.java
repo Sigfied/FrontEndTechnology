@@ -63,8 +63,6 @@ public class TStudentController {
         String no = map.get("no").toString();
         String pwd = map.get("pwd").toString();
 
-        System.out.println(no);
-        System.out.println(pwd);
 
         LambdaQueryWrapper<TStudent> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(TStudent::getStudentNo,no);
