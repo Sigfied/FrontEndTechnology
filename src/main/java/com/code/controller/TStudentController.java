@@ -88,7 +88,7 @@ public class TStudentController {
                     TStudent tStudent1 = tStudentService.getOne(lambdaQueryWrapper3);
                     return Objects.requireNonNullElseGet(tStudent1, Msg::fail);
                 }
-                return Msg.fail();
+                return new Exception("Object is not a student or teacher");
             }
             return teacher;
         }
