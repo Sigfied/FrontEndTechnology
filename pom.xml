@@ -134,6 +134,24 @@
             <version>3.0.15.RELEASE</version>
         </dependency>
 
+
+<!--    后端发送http请求-->
+        <!-- Pull in as a traditional dependency -->
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.11.11</version>
+        </dependency>
+
+        <!-- OR as a snazzy new standalone jar with shaded dependencies -->
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.11.11</version>
+            <classifier>standalone</classifier>
+        </dependency>
+
+
     </dependencies>
     
 </project>
