@@ -17,6 +17,7 @@ import java.util.Map;
  * @author xiaoshuai
  * @since 2022-10-15
  */
+@CrossOrigin(origins = {"*","null"})
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = {"*","null"})

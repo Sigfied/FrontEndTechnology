@@ -21,6 +21,7 @@ import java.util.Map;
 /**
  * @author GYJ
  */
+@CrossOrigin(origins = {"*","null"})
 @Controller
 @RequestMapping("/file")
 @CrossOrigin(origins = {"*","null"})
