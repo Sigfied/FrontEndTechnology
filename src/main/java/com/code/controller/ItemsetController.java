@@ -1,17 +1,14 @@
 package com.code.controller;
 
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.code.pojo.*;
 import com.code.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -118,9 +115,14 @@ public class ItemsetController {
         lambdaQueryWrapper1.eq(TSutdentItem::getStudentId,studentId);
 
         List<TSutdentItem> list = tSutdentItemService.list(lambdaQueryWrapper1);
+        //去重
+        List<TSutdentItem> newList = list.stream().collect(Collectors
+                .collectingAndThen(
+                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(TSutdentItem::getItemId))),
+                        ArrayList::new));
         Map<String,Object> hashMap = new HashMap<>(2);
         hashMap.put("itemSet",itemset);
-        hashMap.put("student",list);
+        hashMap.put("student",newList);
         return hashMap;
     }
 
