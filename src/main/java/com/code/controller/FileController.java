@@ -24,7 +24,6 @@ import java.util.Map;
 @CrossOrigin(origins = {"*","null"})
 @Controller
 @RequestMapping("/file")
-@CrossOrigin(origins = {"*","null"})
 public class FileController {
 
     private static final Logger log =  LoggerFactory.getLogger(FileController.class);
@@ -69,6 +68,8 @@ public class FileController {
         response.setContentType("application/octet-stream");
         response.setCharacterEncoding("utf-8");
         response.setContentLength((int) file.length());
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Content-Disposition", "attachment;filename=" + "output.docx" );
         try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
             byte[] buff = new byte[1024];

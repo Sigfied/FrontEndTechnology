@@ -31,7 +31,6 @@ import java.util.Map;
 @CrossOrigin(origins = {"*","null"})
 @RestController
 @RequestMapping("/item")
-@CrossOrigin(origins = {"*","null"})
 public class ItemController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());

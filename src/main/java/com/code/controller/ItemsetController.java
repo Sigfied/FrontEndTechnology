@@ -75,7 +75,6 @@ public class ItemsetController {
             return null;
         }
 
-
         LambdaQueryWrapper<Itemset> queryWrapper3 = new LambdaQueryWrapper<>();
 
         List<Long> num = new ArrayList<>();
@@ -84,7 +83,6 @@ public class ItemsetController {
         }
         queryWrapper3.in(Itemset::getItemsetId,num);
         return itemsetService.list(queryWrapper3);
-
 
     }
 
