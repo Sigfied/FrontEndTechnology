@@ -44,13 +44,18 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
                                   @NotNull ServerHttpRequest request,
                                   ServerHttpResponse response) {
         // 指定返回的结果为application/json格式
-        // 不指定，String类型转json后返回Content-Type是text/plain;charset=UTF-8
-        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-        log.info("beforeBodyWrite: " + body);
-        if(body == null){
-            return new ResultJson("The result is null");
+        // 不指定，String类型转json后返回Content-Type是text/plain;charset=UTF-8\
+        log.info("beforeBodyWrite: {}",body);
+        if (body==null){
+            return null;
         }
-        else if (body instanceof ResultJson) {
+        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+
+//        if(body == null){
+//            return new ResultJson("The result is null");
+//        }
+//        else
+            if (body instanceof ResultJson) {
             return body;
         } else if (body instanceof String) {
             return JSON.toJSONString(body);

@@ -85,7 +85,7 @@ public class FileController {
     }
 
     @PostMapping("test")
-    public Map<String,Object> getTestInfo(@RequestBody Map<String,Object> info,HttpServletResponse response) throws IOException {
+    public void getTestInfo(@RequestBody Map<String,Object> info,HttpServletResponse response) throws IOException {
         LocalDateTime time = LocalDateTime.now();
         int year = time.getYear();
         int month = time.getMonth().getValue();
@@ -118,7 +118,7 @@ public class FileController {
         fileDownLoad(response,fileOption);
         FileSystemUtils.deleteRecursively(new File(fileOption.outputPath+"output.docx"));
         template.close();
-        return rs;
+//        return rs;
     }
 
     public static <T> List<T> castList(Object obj, Class<T> clazz) {

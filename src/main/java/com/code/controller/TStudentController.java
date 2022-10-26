@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -46,6 +47,7 @@ public class TStudentController {
     private final PersonalinformationService personService;
 
     private final Logger logger = LoggerFactory.getLogger(TStudentController.class);
+
 
     @Autowired
     public TStudentController(TStudentService tStudentService, TeacherService teacherService, RedisTemplate<String,Object> redisTemplate, PersonalinformationService personService,PersonalinformationService personalinformationService) {
@@ -91,11 +93,7 @@ public class TStudentController {
                         lambdaQueryWrapper4.eq(Teacher::getTeacherId,teacherId);
                         lambdaQueryWrapper4.eq(Teacher::getTeacherPassword,pwd);
                         Teacher teacher1 = teacherService.getOne(lambdaQueryWrapper4);
-                        if(teacher1==null){
-                            return Msg.fail();
-                        }
-
-                        return teacher1;
+                        return Objects.requireNonNullElseGet(teacher1, Msg::fail);
                     }
                     else{
                         LambdaQueryWrapper<TStudent> lambdaQueryWrapper3 = new LambdaQueryWrapper<>();
