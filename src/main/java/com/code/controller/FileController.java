@@ -99,7 +99,7 @@ public class FileController {
         String experience = (String) info.get("experience");
         log.info("{},{},{},{},{},{},{}", studentNo, studentName, testName,purpose, task,result,experience);
         String absolutePath = fileOption.inputPath+"template.docx";
-        HashMap<String, Object> rs = new HashMap<>(16) {
+        HashMap<String, Object> rs = new HashMap<String,Object>(16) {
             {
                 put("year", year);
                 put("month", month);
