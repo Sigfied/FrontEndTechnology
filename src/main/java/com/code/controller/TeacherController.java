@@ -117,17 +117,17 @@ public class TeacherController {
         clazzList.forEach(v -> {
             List<JSONObject> cl = new ArrayList<>();
             studentList.forEach(s -> {
-               if(v.getClazzNo().equals(s.getClazzNo())){
-                   JSONObject r = new JSONObject();
-                   r.put("studentId", s.getStudentId());
-                   r.put("studentName", s.getStudentName());
-                   r.put("clazzNo",s.getClazzNo());
-                   cl.add(r);
-               }
+                if (v.getClazzNo().equals(s.getClazzNo())) {
+                    JSONObject r = new JSONObject();
+                    r.put("studentId", s.getStudentId());
+                    r.put("studentName", s.getStudentName());
+                    r.put("clazzNo", s.getClazzNo());
+                    cl.add(r);
+                }
             });
             list.add(cl);
         });
-        res.put("students",list);
+        res.put("students", list);
         return res;
     }
 
@@ -184,5 +184,20 @@ public class TeacherController {
     }
 
 
+    @PostMapping("/getItemInfo")
+    public Map<String, Object> getItemListBySetId(@RequestBody Map<String, Object> params) {
+        Long itemSetId = Long.parseLong(String.valueOf(params.get("itemSetId")));
+        LambdaQueryWrapper<ItemItemset> wrapper1 = new LambdaQueryWrapper<>();
+        wrapper1.eq(ItemItemset::getItemsetId, itemSetId);
+        List<Long> itemIdList = itemItemSetService.list(wrapper1).stream().map(ItemItemset::getItemId).collect(Collectors.toList());
+
+        LambdaQueryWrapper<Item> itemWrapper = new LambdaQueryWrapper<>();
+        itemWrapper.in(Item::getItemId,itemIdList);
+        List<Item> itemList = itemService.list(itemWrapper);
+        Map<String, Object> result = new HashMap<>(2);
+
+        result.put("itemList",itemList);
+        return result;
+    }
 }
 

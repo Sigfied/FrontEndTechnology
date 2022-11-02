@@ -142,7 +142,7 @@ public class TStudentController {
         }
     }
 
-    @GetMapping("/captcha")
+    @PostMapping("/captcha")
     public String getCaptcha(@RequestBody Map<String,String> params) {
        String email = params.get("email");
        String code = VerCodeGenerateUtil.generateVerCode();

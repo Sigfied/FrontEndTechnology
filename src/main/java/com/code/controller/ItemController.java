@@ -28,7 +28,7 @@ import java.util.Map;
  * @author xiaoshuai
  * @since 2022-10-16
  */
-@CrossOrigin(origins = {"*","null"})
+@CrossOrigin(origins = {"*","null"},allowedHeaders = "*")
 @RestController
 @RequestMapping("/item")
 public class ItemController {
@@ -61,12 +61,9 @@ public class ItemController {
     }
 
 
-
-
-    @ResponseBody
-    @RequestMapping("submissons")
+    @PostMapping("submissions")
     public List<Testcase> sumbit(@RequestBody Map<String, Object>map){
-
+        log.info("submit{}",map);
         String student_id = map.get("student_id").toString();
         String item_id = map.get("item_id").toString();
         String code = map.get("code").toString();
